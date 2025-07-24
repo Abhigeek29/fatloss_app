@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fat Loss Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 16px 0;
+        }
+        .result {
+            background: #dff0d8;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Fat Loss Calculator</h2>
+    <form method="POST">
+        <label>Enter your weight (kg):</label>
+        <input type="number" name="weight" step="0.1" required>
+
+        <label>Enter body fat % you want to lose:</label>
+        <input type="number" name="fatpercent" step="0.1" required>
+
+        <label>Select your fat loss intensity:</label>
+        <select name="intensity" required>
+            <option value="1">Mild (-200 cal/day)</option>
+            <option value="2">Serious (-500 cal/day)</option>
+            <option value="3">Extreme (-1000 cal/day)</option>
+        </select>
+
+        <input type="submit" value="Calculate">
+    </form>
+
+    {% if result %}
+        {% if result.error %}
+            <div class="result" style="background: #f8d7da;">
+                {{ result.error }}
+            </div>
+        {% else %}
+            <div class="result">
+                <p>To achieve <strong>{{ result.fat_percent }}%</strong> fat loss:</p>
+                <p>You need to lose <strong>{{ result.fat_mass }} kg</strong> of fat.</p>
+                <p>You must eat <strong>{{ result.deficit }} calories</strong> in deficit daily for about <strong>{{ result.days }} days</strong>.</p>
+            </div>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
